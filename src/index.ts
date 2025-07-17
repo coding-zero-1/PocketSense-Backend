@@ -14,19 +14,15 @@ async function main() {
   connectToDb(mongoUrl);
   const app = express();
   const PORT = process.env.PORT || 3000;
-  app.use(
-    cors({
-      origin: process.env.CORS_ORIGIN,
-    })
-  );
+  app.use(cors());
   app.use(express.json());
   app.get("/", (req, res) => {
     res.send("Hello, World!");
   });
 
   //user router
-  app.use('/api/v1',userRouter);
-  
+  app.use("/api/v1", userRouter);
+
   app.listen(PORT, () => {
     console.log(`Server is running on PORT:${PORT}`);
   });
