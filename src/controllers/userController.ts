@@ -40,7 +40,11 @@ const webhookController = async (req: Request, res: Response) => {
           firstName: data.first_name,
           photo: data.profile_image_url,
         };
-        await UserModel.findOneAndUpdate({clerkid:data.id}, userUpdatedData,{runValidators:true});
+        await UserModel.findOneAndUpdate(
+          { clerkid: data.id },
+          userUpdatedData,
+          { runValidators: true }
+        );
         res.status(200).json({
           success: true,
           message: "user updated successfully",
@@ -48,18 +52,18 @@ const webhookController = async (req: Request, res: Response) => {
         break;
       case "user.deleted":
         const clerkId = data.id;
-        const user = await UserModel.findOneAndDelete({clerkId:clerkId});
-        if(user){
-            await TransactionModel.deleteMany({user:user._id});
-            res.status(200).json({
-                success:true,
-                message:"user deleted successfully"
-            })
-        }else{
-            res.status(404).json({
-                success:false,
-                message:"user not found or already deleted"
-            })
+        const user = await UserModel.findOneAndDelete({ clerkId: clerkId });
+        if (user) {
+          await TransactionModel.deleteMany({ user: user._id });
+          res.status(200).json({
+            success: true,
+            message: "user deleted successfully",
+          });
+        } else {
+          res.status(404).json({
+            success: false,
+            message: "user not found or already deleted",
+          });
         }
         break;
       default:

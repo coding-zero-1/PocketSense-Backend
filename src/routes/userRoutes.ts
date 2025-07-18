@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { webhookController } from "../controllers/userController";
 
-const userRouter = Router()
+const userRouter = Router();
 
-userRouter.post('/webhooks',webhookController)
+userRouter.post("/webhooks", webhookController);
 
 export default userRouter;

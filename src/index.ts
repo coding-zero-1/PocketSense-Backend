@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectToDb from "./config/dbConfig";
 import userRouter from "./routes/userRoutes";
+import transactionRouter from "./routes/transactionRoutes";
 dotenv.config();
 
 async function main() {
@@ -25,8 +26,11 @@ async function main() {
   });
 
   //user router
-  app.use('/api/v1',userRouter);
-  
+  app.use("/api/v1", userRouter);
+
+  //transaction router
+  app.use("/api/v1/transaction", transactionRouter);
+
   app.listen(PORT, () => {
     console.log(`Server is running on PORT:${PORT}`);
   });
